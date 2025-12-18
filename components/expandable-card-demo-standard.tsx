@@ -1,0 +1,269 @@
+"use client";
+
+import React, { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useOutsideClick } from "@/hooks/use-outside-click";
+
+export default function ExpandableCardDemo() {
+  const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
+    null
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  const id = useId();
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setActive(false);
+      }
+    }
+
+    if (active && typeof active === "object") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [active]);
+
+  useOutsideClick(ref, () => setActive(null));
+
+  return (
+    <>
+      <AnimatePresence>
+        {active && typeof active === "object" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 h-full w-full z-10"
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {active && typeof active === "object" ? (
+          <div className="fixed inset-0  grid place-items-center z-[100]">
+            <motion.button
+              key={`button-${active.title}-${id}`}
+              layout
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+                transition: {
+                  duration: 0.05,
+                },
+              }}
+              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+              onClick={() => setActive(null)}
+            >
+              <CloseIcon />
+            </motion.button>
+            <motion.div
+              layoutId={`card-${active.title}-${id}`}
+              ref={ref}
+              className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+            >
+
+
+              <div>
+                <div className="flex justify-between items-start p-4">
+                  <div className="">
+                    <motion.h3
+                      layoutId={`title-${active.title}-${id}`}
+                      className="font-bold text-green-500 dark:text-green-500"
+                    >
+                      {active.title}
+                    </motion.h3>
+                    <motion.p
+                      layoutId={`description-${active.description}-${id}`}
+                      className="text-white dark:text-white"
+                    >
+                      {active.description}
+                    </motion.p>
+                  </div>
+
+                  <motion.a
+                    layoutId={`button-${active.title}-${id}`}
+                    href={active.ctaLink}
+                    target="_blank"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-black"
+                  >
+                    {active.ctaText}
+                  </motion.a>
+                </div>
+                <div className="pt-4 relative px-4">
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-white text-xs md:text-sm lg:text-base h-64 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-white [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                  >
+                    {typeof active.content === "function"
+                      ? active.content()
+                      : active.content}
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        ) : null}
+      </AnimatePresence>
+      <ul className="max-w-2xl mx-auto w-full gap-4">
+        {cards.map((card, index) => (
+          <motion.div
+            layoutId={`card-${card.title}-${id}`}
+            key={`card-${card.title}-${id}`}
+            onClick={() => setActive(card)}
+            className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+          >
+            <div className="flex gap-4 flex-col md:flex-row ">
+
+              <div className="">
+                <motion.h3
+                  layoutId={`title-${card.title}-${id}`}
+                  className="font-medium text-green-500 dark:text-green-500 text-center md:text-left"
+                >
+                  {card.title}
+                </motion.h3>
+                <motion.p
+                  layoutId={`description-${card.description}-${id}`}
+                  className="text-white dark:text-white text-center md:text-left"
+                >
+                  {card.description}
+                </motion.p>
+              </div>
+            </div>
+            <motion.button
+              layoutId={`button-${card.title}-${id}`}
+              className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 text-black mt-4 md:mt-0"
+            >
+              {card.ctaText}
+            </motion.button>
+          </motion.div>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+export const CloseIcon = () => {
+  return (
+    <motion.svg
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          duration: 0.05,
+        },
+      }}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4 text-white"
+    >
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M18 6l-12 12" />
+      <path d="M6 6l12 12" />
+    </motion.svg>
+  );
+};
+
+const cards = [
+  {
+    description: "Agricultural Ecosystem Platform",
+    title: "AgriLinkV2",
+    src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
+    ctaText: "GitHub",
+    ctaLink: "https://github.com/the-samarium/AgriLinkV2",
+    content: () => {
+      return (
+        <p>
+          AgriLinkV2 is a comprehensive platform designed to bridge the gap between farmers,
+          markets, and agricultural resources. By providing real-time data, market insights,
+          and resource management tools, it empowers farmers to make informed decisions
+          and maximize their productivity. <br /> <br /> The platform features an intuitive
+          interface, robust backend architecture, and seamless integration with various
+          agricultural services, aiming to create a more connected and efficient ecosystem
+          for modern farming.
+        </p>
+      );
+    },
+  },
+  {
+    description: "Advanced Image Processing UI",
+    title: "Z-image-Interface",
+    src: "https://assets.aceternity.com/demos/babbu-maan.jpeg",
+    ctaText: "GitHub",
+    ctaLink: "https://github.com/the-samarium/Z-image-Interface",
+    content: () => {
+      return (
+        <p>
+          Z-image-Interface is a sophisticated user interface built for advanced image
+          processing and manipulation tasks. It provides users with a powerful set of tools
+          to analyze, edit, and transform digital imagery with precision and ease. <br /> <br />
+          Designed with a focus on user experience and performance, the interface supports
+          complex workflows and high-resolution image handling, making it an ideal tool
+          for developers and researchers working in computer vision and graphics.
+        </p>
+      );
+    },
+  },
+
+  {
+    description: "Digital Design & Creation Tool",
+    title: "PixelCraft-Studio",
+    src: "https://assets.aceternity.com/demos/metallica.jpeg",
+    ctaText: "GitHub",
+    ctaLink: "https://github.com/the-samarium/PixelCraft-Studio",
+    content: () => {
+      return (
+        <p>
+          PixelCraft-Studio is a creative suite designed for digital art and pixel-perfect
+          design. It offers a canvas for artists to explore their creativity, providing
+          essential tools for drawing, coloring, and animating pixel art. <br /> <br />
+          With its lightweight architecture and responsive design, PixelCraft-Studio
+          ensures a smooth and enjoyable experience for both hobbyists and professional
+          designers looking to craft unique digital assets.
+        </p>
+      );
+    },
+  },
+  {
+    description: "Generative AI Exploration",
+    title: "gen-ai",
+    src: "https://assets.aceternity.com/demos/led-zeppelin.jpeg",
+    ctaText: "GitHub",
+    ctaLink: "https://github.com/the-mayur/gen-ai",
+    content: () => {
+      return (
+        <p>
+          This project is an exploration into the rapidly evolving field of Generative AI.
+          It serves as a playground for experimenting with various AI models, techniques,
+          and applications, ranging from text generation to image synthesis. <br /> <br />
+          By investigating the capabilities and limitations of modern AI, this repository
+          aims to contribute to the understanding and practical implementation of generative
+          technologies in real-world scenarios.
+        </p>
+      );
+    },
+  },
+];
