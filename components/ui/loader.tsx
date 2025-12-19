@@ -9,7 +9,8 @@ export const LoaderOne = () => {
       repeat: Infinity,
       repeatType: "loop" as const,
       delay: x * 0.2,
-      ease: "easeInOut",
+      // easeInOut cubic-bezier equivalent
+      ease: [0.42, 0, 0.58, 1],
     };
   };
   return (
@@ -21,8 +22,12 @@ export const LoaderOne = () => {
         animate={{
           y: [0, 10, 0],
         }}
-        transition={transition(0)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
+        transition={{
+          ...transition(0),
+          // Fix: framer-motion expects "ease" to be an EasingFunction or string, not a number array
+          ease: "easeInOut",
+        }}
+        className="h-4 w-4 rounded-full border border-neutral-300 bg-linear-to-b from-neutral-400 to-neutral-300"
       />
       <motion.div
         initial={{
@@ -31,8 +36,12 @@ export const LoaderOne = () => {
         animate={{
           y: [0, 10, 0],
         }}
-        transition={transition(1)}
-        className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
+        transition={{
+          ...transition(1),
+          // Fix: framer-motion expects "ease" to be an EasingFunction or string, not a number array
+          ease: "easeInOut",
+        }}
+        className="h-4 w-4 rounded-full border border-neutral-300 bg-linear-to-b from-neutral-400 to-neutral-300"
       />
       <motion.div
         initial={{
@@ -41,7 +50,11 @@ export const LoaderOne = () => {
         animate={{
           y: [0, 10, 0],
         }}
-        transition={transition(2)}
+        transition={{
+          ...transition(2),
+          // Fix: framer-motion expects "ease" to be an EasingFunction or string, not a number array
+          ease: "easeInOut",
+        }}
         className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
       />
     </div>
@@ -55,13 +68,13 @@ export const LoaderTwo = () => {
       repeat: Infinity,
       repeatType: "loop" as const,
       delay: x * 0.2,
-      ease: "easeInOut",
+      // easeInOut cubic-bezier equivalent
+      ease: [0.42, 0, 0.58, 1],
     };
   };
   return (
     <div className="flex items-center">
       <motion.div
-        transition={transition(0)}
         initial={{
           x: 0,
         }}
@@ -77,7 +90,11 @@ export const LoaderTwo = () => {
         animate={{
           x: [0, 20, 0],
         }}
-        transition={transition(0.4)}
+        transition={{
+          ...transition(0.4),
+          // Fix: framer-motion expects "ease" to be an EasingFunction or string, not a number array
+          ease: "easeInOut",
+        }}
         className="h-4 w-4 -translate-x-2 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
       />
       <motion.div
@@ -87,7 +104,11 @@ export const LoaderTwo = () => {
         animate={{
           x: [0, 20, 0],
         }}
-        transition={transition(0.8)}
+        transition={{
+          ...transition(0.8),
+          // Fix: framer-motion expects "ease" to be an EasingFunction or string, not a number array
+          ease: "easeInOut",
+        }}
         className="h-4 w-4 -translate-x-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
       />
     </div>
@@ -114,7 +135,8 @@ export const LoaderThree = () => {
         animate={{ pathLength: 1, fill: "var(--fill-final)" }}
         transition={{
           duration: 2,
-          ease: "easeInOut",
+          // easeInOut cubic-bezier equivalent
+          ease: [0.42, 0, 0.58, 1],
           repeat: Infinity,
           repeatType: "reverse",
         }}
@@ -126,10 +148,11 @@ export const LoaderThree = () => {
 
 export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
   return (
-    <div className="relative font-bold text-black [perspective:1000px] dark:text-white">
+    <div className="relative font-bold text-black perspective-[1000px] dark:text-white">
       <motion.span
         animate={{
-          skew: [0, -40, 0],
+          // Use rotateY to create a 3D skew/flipping illusion, since "skew" is not supported by Framer Motion.
+          rotateY: [0, -40, 0],
           scaleX: [1, 2, 1],
         }}
         transition={{
@@ -137,7 +160,8 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
           repeat: Infinity,
           repeatType: "reverse",
           repeatDelay: 2,
-          ease: "linear",
+          // linear easing
+          ease: [0, 0, 1, 1],
           times: [0, 0.2, 0.5, 0.8, 1],
         }}
         className="relative z-20 inline-block"
@@ -155,7 +179,8 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
           duration: 0.5,
           repeat: Infinity,
           repeatType: "reverse",
-          ease: "linear",
+          // linear easing
+          ease: [0, 0, 1, 1],
           times: [0, 0.2, 0.5, 0.8, 1],
         }}
       >
@@ -172,7 +197,8 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
           duration: 0.8,
           repeat: Infinity,
           repeatType: "reverse",
-          ease: "linear",
+          // linear easing
+          ease: [0, 0, 1, 1],
           times: [0, 0.3, 0.6, 0.8, 1],
         }}
       >
@@ -204,7 +230,8 @@ export const LoaderFive = ({ text }: { text: string }) => {
             repeat: Infinity,
             repeatType: "loop",
             delay: i * 0.05,
-            ease: "easeInOut",
+            // easeInOut cubic-bezier equivalent
+            ease: [0.42, 0, 0.58, 1],
             repeatDelay: 2,
           }}
         >
