@@ -1,17 +1,29 @@
 
 import { Hero7 } from "@/components/hero-section-demo-1";
-import { Navbar1 } from "@/components/navbar1";
 import { Button } from "@/components/ui/button";
-import { LampContainer } from "@/components/ui/lamp";
-import { MacbookScroll } from "@/components/ui/macbook-scroll";
 import { Tooltip } from "@/components/ui/tooltip-card";
 import { CometCard } from "@/components/ui/comet-card";
 import { FloatingDock } from "@/components/ui/floating-dock";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
+import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
+import { LoaderThree } from "@/components/ui/loader";
+import { EasterEggMarquee } from "@/components/easter-egg-marquee";
 
-import { Home as HomeIcon, User, FolderGit2, Mail, Code2, Database, Palette, Zap, Globe, Server, Linkedin, Instagram, Github } from "lucide-react";
+import {
+  Home as HomeIcon,
+  User,
+  FolderGit2,
+  Mail,
+  Code2,
+  Palette,
+  Zap,
+  Globe,
+  Server,
+  Linkedin,
+  Instagram,
+  Github,
+} from "lucide-react";
 import ExpandableCardDemo from "@/components/expandable-card-demo-standard";
-import { PinContainer } from "@/components/ui/3d-pin";
 
 export default function Home() {
   const dockItems = [
@@ -55,12 +67,11 @@ export default function Home() {
                     <Tooltip
                       content="Vishwakarma Institute of Technology (VIT), Pune is a well-known autonomous engineering institute located in Bibwewadi, Pune. Established in 1983 and managed by the Bansilal Ramnath Agarwal Charitable Trust, it is permanently affiliated with Savitribai Phule Pune University and approved by AICTE. VIT Pune offers undergraduate, postgraduate, and doctoral programs in engineering and is recognized for its strong academic structure, active technical culture, and consistent placement record, making it one of the reputable engineering colleges in western India."
                       tooltipClassName="w-fit min-w-32"
-                      children={
-                        <span className="font-semibold text-green-500 cursor-pointer hover:underline decoration-dotted underline-offset-4">
-                          Vishwakarma Institute of Information Technology
-                        </span>
-                      }
-                    />
+                    >
+                      <span className="font-semibold text-green-500 cursor-pointer hover:underline decoration-dotted underline-offset-4">
+                        Vishwakarma Institute of Information Technology
+                      </span>
+                    </Tooltip>
                     , maintaining a strong academic record with a current GPA of 8.7.
                   </p>
                   <p>
@@ -76,8 +87,9 @@ export default function Home() {
                   <div className="flex gap-4 mt-6">
                     <Tooltip
                       content="Click to learn more about my skills and expertise"
-                      children={<Button>My Skills</Button>}
-                    />
+                    >
+                      <Button>My Skills</Button>
+                    </Tooltip>
                   </div>
                 </div>
               </div>
@@ -265,48 +277,39 @@ export default function Home() {
 
       {/* Outside the Terminal Section */}
       <section className="h-full w-full flex items-center justify-center py-8 pt-4 bg-gradient-to-b from-transparent to-neutral-100 dark:to-neutral-900">
-        <div className="w-full md:w-2/3 border border-gray-900 bg-black opacity-70 p-4 md:p-8 rounded max-w-7xl px-4 md:px-8 mx-4 md:mx-0">
+        <div className="w-full md:w-3/4 border border-gray-900 bg-black/80 p-4 md:p-8 rounded-2xl max-w-7xl mx-4 md:mx-0 overflow-hidden relative">
+          <DottedGlowBackground className="absolute inset-0 pointer-events-none" opacity={0.5} />
 
-          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 items-start">
-            {/* 3D Pin Card - Left Side */}
+          <div className="relative grid grid-cols-1 lg:grid-cols-[minmax(0,_1.1fr)_minmax(0,_1.2fr)] gap-10 md:gap-14 items-start">
+            {/* Loader Left Side */}
             <div className="flex flex-col justify-center items-center">
-              <PinContainer
-                title="Better call Saul (2015-2022)"
-                href="https://www.imdb.com/title/tt3032476/?ref_=nv_sr_srsg_0_tt_8_nm_0_in_0_q_better"
-              >
-                <div className="flex basis-full flex-col p-4 text-center justify-center items-center tracking-tight text-white sm:basis-1/2 w-full max-w-[20rem] h-[15rem]">
-
-                  <div className="text-sm !m-0 !p-0 font-normal">
-                    <span className="text-white italic">
-                      "The winner takes it all..."
-                    </span>
-                  </div>
-
+              <div className="flex flex-col justify-center items-center text-center tracking-tight text-white w-full max-w-xl lg:max-w-2xl h-64 md:h-80 p-6 md:p-8 rounded-xl bg-black/60">
+                <LoaderThree />
+                <div className="mt-6 text-sm md:text-base font-normal">
+                  <span className="text-white italic">
+                    &quot;The winner takes it all...&quot;
+                  </span>
                 </div>
-              </PinContainer>
+              </div>
             </div>
 
             {/* Text & Spotify - Right Side */}
             <div className="space-y-6">
-              <h2 className="text-4xl mb-12 text-white text-start">Outside the Terminal</h2>
+              <h2 className="text-4xl mb-6 text-white text-start">Outside the Terminal</h2>
               <div>
                 <p className="text-base text-white mb-6 leading-relaxed">
-                  I can code for hours fueled by nothing but coffee and my incredibly diverse playlist! When I'm not debugging, you'll catch me binge-watching series, exploring films, rewatching comfort shows for the hundredth time, or discovering hidden gem documentaries. My music taste knows no boundaries— literally.
+                  I can code for hours fueled by nothing but coffee and my incredibly diverse playlist! When I&apos;m not debugging,
+                  you&apos;ll catch me binge-watching series, exploring films, rewatching comfort shows for the hundredth time, or
+                  discovering hidden gem documentaries. My music taste knows no boundaries— literally.
                 </p>
-
-                <p className="text-base text-white mb-6 leading-relaxed">
-
-                </p>
-
-
-
-
-
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Pluribus Easter Egg (subtle scroll) */}
+      <EasterEggMarquee />
 
       {/* Footer */}
       <footer id="contact" className="w-full py-8 relative">

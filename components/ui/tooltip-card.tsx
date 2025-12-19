@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -140,7 +140,7 @@ export const Tooltip = ({
   };
 
   // Update position when tooltip becomes visible or content changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isVisible && contentRef.current) {
       const newPosition = calculatePosition(mouse.x, mouse.y);
       setPosition(newPosition);

@@ -1,67 +1,20 @@
 "use client";
 
-import { Star } from "lucide-react";
 import React from "react";
 
 import { cn } from "@/lib/utils";
-
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { EncryptedText } from "@/components/ui/encrypted-text";
-
 
 interface Hero7Props {
   heading?: string;
   description?: string;
-  button?: {
-    text: string;
-    url: string;
-    className?: string;
-  };
-  reviews?: {
-    count: number;
-    rating?: number;
-    avatars: {
-      src: string;
-      alt: string;
-    }[];
-  };
   className?: string;
 }
 
 const Hero7 = ({
   heading = "Sameer Chavan",
   description = "I build reliable, performance-focused web applications and explore practical uses of AI and modern tooling.",
-  button = {
-    text: "Discover all components",
-    url: "https://www.shadcnblocks.com",
-  },
-  reviews = {
-    count: 200,
-    rating: 5.0,
-    avatars: [
-      {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp",
-        alt: "Avatar 1",
-      },
-      {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-2.webp",
-        alt: "Avatar 2",
-      },
-      {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-3.webp",
-        alt: "Avatar 3",
-      },
-      {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-4.webp",
-        alt: "Avatar 4",
-      },
-      {
-        src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-5.webp",
-        alt: "Avatar 5",
-      },
-    ],
-  },
   className,
 }: Hero7Props) => {
   return (

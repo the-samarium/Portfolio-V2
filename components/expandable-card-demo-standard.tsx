@@ -117,7 +117,7 @@ export default function ExpandableCardDemo() {
         ) : null}
       </AnimatePresence>
       <ul className="max-w-2xl mx-auto w-full gap-4">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={`card-${card.title}-${id}`}
@@ -190,14 +190,14 @@ export const CloseIcon = () => {
 const cards = [
   {
     description: "Agricultural Ecosystem Platform",
-    title: "AgriLinkV2",
+    title: "AgriLink",
     src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
     ctaText: "GitHub",
     ctaLink: "https://github.com/the-samarium/AgriLinkV2",
     content: () => {
       return (
         <p>
-          AgriLinkV2 is a comprehensive platform designed to bridge the gap between farmers,
+          AgriLink is a comprehensive platform designed to bridge the gap between farmers,
           markets, and agricultural resources. By providing real-time data, market insights,
           and resource management tools, it empowers farmers to make informed decisions
           and maximize their productivity. <br /> <br /> The platform features an intuitive
@@ -218,11 +218,11 @@ const cards = [
       return (
         <p>
           Z-image-Interface is a sophisticated user interface built for advanced image
-          processing and manipulation tasks. It provides users with a powerful set of tools
-          to analyze, edit, and transform digital imagery with precision and ease. <br /> <br />
+          processing and manipulation tasks, specifically excels in tet generation. It provides users with a powerful set of tools
+          to analyze, edit, and transform digital imagery with precision and ease, examples used here are of marketing content. <br /> <br />
           Designed with a focus on user experience and performance, the interface supports
           complex workflows and high-resolution image handling, making it an ideal tool
-          for developers and researchers working in computer vision and graphics.
+          for developers as well as users looking to create marketing content.
         </p>
       );
     },
@@ -249,19 +249,15 @@ const cards = [
   },
   {
     description: "Generative AI Exploration",
-    title: "gen-ai",
+    title: "GenAI Exploration",
     src: "https://assets.aceternity.com/demos/led-zeppelin.jpeg",
     ctaText: "GitHub",
-    ctaLink: "https://github.com/the-mayur/gen-ai",
+    ctaLink: "https://github.com/the-samarium/Image-Generator-Bot",
     content: () => {
       return (
         <p>
           This project is an exploration into the rapidly evolving field of Generative AI.
-          It serves as a playground for experimenting with various AI models, techniques,
-          and applications, ranging from text generation to image synthesis. <br /> <br />
-          By investigating the capabilities and limitations of modern AI, this repository
-          aims to contribute to the understanding and practical implementation of generative
-          technologies in real-world scenarios.
+          It consists of a bot that generates images using various tools, node based workflows and stable diffusion models. This project helped me understand the capabilities and limitations of modern AI, and how to use it to create something useful. Improved my understanding of the capabilities and limitations of stable diffusion models, and explored tools like ComfyUI.
         </p>
       );
     },
